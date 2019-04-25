@@ -11,10 +11,14 @@ newtype Statement = Statement (S.Set Int)
 instance Show Statement where
     show (Statement ss) = show $ S.toList ss
 
--- Lift a function of two things
+-- Lift a function of two things over set constructor
 liftS2 :: (S.Set Int -> S.Set Int -> S.Set Int)
        -> Statement -> Statement -> Statement
 liftS2 func (Statement xs) (Statement ys) = Statement $ func xs ys
+
+-- A variant for when the output is not a Statement
+liftS2' :: (S.Set Int -> S.Set Int -> a) -> Statement -> Statement -> a
+liftS2' func (Statement xs) (Statement ys) = func xs ys
 
 
 -- Join of two statements
@@ -28,8 +32,8 @@ meet = liftS2 S.intersection
 
 
 ---- Does x imply y?
---implies :: Statement -> Statement -> Bool
---implies x y = 
+implies :: Statement -> Statement -> Bool
+implies = liftS2' S.isSubsetOf
 
 
 ---- A boolean lattice of size numAtoms.
