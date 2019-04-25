@@ -20,19 +20,25 @@ extra-source-files:
 description:         Please see the README on GitHub at <https://github.com/eggplantbren/KnuSkillz#readme>
 
 dependencies:
-- base >= 4.7 && < 5
+    - base >= 4.7 && < 5
+    - containers
 
 library:
-  source-dirs: src
+    source-dirs: src
+    ghc-options:
+        - -Wall
+        - -Wextra  
 
 executables:
-  KnuSkillz-exe:
+  Main:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    - -Wall
+    - -Wextra
     dependencies:
     - KnuSkillz
 

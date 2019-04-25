@@ -1,6 +1,11 @@
 module Main where
 
-import Lib
+-- Imports
+import KnuSkillz.Statement
 
+-- Main action
 main :: IO ()
-main = someFunc
+main = do
+    let statements = booleanLattice 3
+    print statements
+
