@@ -11,6 +11,12 @@ newtype Statement = Statement (S.Set Int)
 instance Show Statement where
     show (Statement ss) = show $ S.toList ss
 
+
+-- A bottom statement
+bottomStatement :: Statement
+bottomStatement = Statement $ S.fromList []
+
+
 -- Lift a function of two things over set constructor
 liftS2 :: (S.Set Int -> S.Set Int -> S.Set Int)
        -> Statement -> Statement -> Statement
@@ -34,6 +40,13 @@ meet = liftS2 S.intersection
 ---- Does x imply y?
 implies :: Statement -> Statement -> Bool
 implies = liftS2' S.isSubsetOf
+
+
+-- Are the two statements mutually exclusive?
+-- Haskell exercise: make it pointfree...I failed to do so
+disjoint :: Statement -> Statement -> Bool
+disjoint x y = meet x y == bottomStatement
+
 
 
 ---- A boolean lattice of size numAtoms.
